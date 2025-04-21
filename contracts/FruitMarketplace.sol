@@ -1,7 +1,8 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 contract FruitMarketplace {
-    struct Fruit{
+    struct Fruit {
         string name;
         uint price;
         address payable seller;
@@ -14,12 +15,14 @@ contract FruitMarketplace {
     mapping(address => uint[]) public sellerFruits;
     mapping(address => uint) public sellerRatings;
 
-    function addFruit(string memory _name, uint _price) public{
-        fruits.push(Fruit(_name, _price, payable(msg.sender), true, address(0)));
+    function addFruit(string memory _name, uint _price) public {
+        fruits.push(
+            Fruit(_name, _price, payable(msg.sender), true, address(0))
+        );
         sellerFruits[msg.sender].push(fruits.length - 1);
     }
 
-    function buyFruit(uint _index) public payable{
+    function buyFruit(uint _index) public payable {
         Fruit storage fruit = fruits[_index];
         require(fruit.available, "Fruit already sold");
         require(msg.value >= fruit.price, "Not enough funds");
@@ -34,7 +37,7 @@ contract FruitMarketplace {
         sellerRatings[_seller] = _rating;
     }
 
-    function updateFruit(uint _index, string memory _name, uint _price) public{
+    function updateFruit(uint _index, string memory _name, uint _price) public {
         Fruit storage fruit = fruits[_index];
         require(msg.sender == fruit.seller, "Only seller can update");
         require(fruit.available, "Fruit alredy sold");
@@ -42,7 +45,7 @@ contract FruitMarketplace {
         fruit.price = _price;
     }
 
-    function getFruits() public view returns (Fruit[] memory){
+    function getFruits() public view returns (Fruit[] memory) {
         return fruits;
     }
 }
