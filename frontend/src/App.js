@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import AddFruitForm from "./components/AddFruitForm";
 import FruitList from "./components/FruitList";
 import RateSellerForm from "./components/RateSellerForm";
-
 function App() {
   const connectWallet = async () => {
     if (window.ethereum) {

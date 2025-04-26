@@ -54,13 +54,25 @@ contract("FruitMarketplace", (accounts) => {
     assert.equal(fruit.available, false);
   });
 
-  // ✅ Test 5 : Évaluation du fournisseur
-  it("doit permettre à un acheteur d'évaluer un fournisseur", async () => {
-    await instance.rateSeller(seller, 4, { from: buyer });
+  // ✅ Test 5 : Évaluation du fournisseur (corrigé)
+it("doit permettre à un acheteur d'évaluer un fournisseur", async () => {
+  // Le vendeur ajoute un fruit
+  await instance.addFruit("Fraise", web3.utils.toWei("1", "ether"), { from: seller });
 
-    const rating = await instance.sellerRatings(seller);
-    assert.equal(rating, 4);
+  // L'acheteur achète ce fruit
+  await instance.buyFruit(0, {
+    from: buyer,
+    value: web3.utils.toWei("1", "ether"),
   });
+
+  // L'acheteur note maintenant le vendeur
+  await instance.rateSeller(seller, 4, { from: buyer });
+
+  const rating = await instance.sellerRatings(seller);
+  assert.equal(rating.totalRating.toString(), "4");
+  assert.equal(rating.numberOfRatings.toString(), "1");
+});
+
 
   // ✅ Test 6 : Mise à jour de la liste des fruits
   it("doit permettre au vendeur de mettre à jour les détails du fruit", async () => {

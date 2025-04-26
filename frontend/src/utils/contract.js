@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import FruitMarketplace from "../abi/FruitMarketplace.json";
 
 // Remplace par l'adresse déployée de ton contrat
-const CONTRACT_ADDRESS = "0x23a5365113d26dc5Aec935839CD5A3590D58f284";
+const CONTRACT_ADDRESS = "0xA66045d70F1872E84f22b66D69462992aCC847Ce";
 
 export const getContract = async () => {
     if (!window.ethereum) throw new Error("MetaMask non détecté");

@@ -12,6 +12,9 @@ export default function AddFruitForm() {
       const tx = await contract.addFruit(name, ethers.parseEther(price));
       await tx.wait();
       alert("Fruit ajouté !");
+      
+      // Rafraîchissement de la page
+      window.location.reload(); // Rafraîchit la page pour obtenir les données mises à jour
     } catch (error) {
       console.error(error);
     }
